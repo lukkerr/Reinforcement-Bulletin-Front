@@ -1,0 +1,14 @@
+<mat-toolbar class="header mat-elevation-z3">
+  <span routerLink="/">
+    <i class="material-icons" style="color: #FFF">assignment</i>
+  </span>
+  <span routerLink="/" class="title-page">
+    <h3>Reinforcement Bulletin</h3>
+  </span>
+
+  <div class="div-sessao">
+    <span *ngIf="usuarioLogado !== null">Bem-vindo {{usuarioLogado.nome}}</span>
+    <button *ngIf="usuarioLogado === null && !isPageLogin()" mat-raised-button color="primary" name="login" routerLink="/login" >Login</button>
+    <button *ngIf="usuarioLogado !== null" mat-raised-button color="accent" name="logout" (click)="logout()" >Logout</button>
+  </div>
+</mat-toolbar>

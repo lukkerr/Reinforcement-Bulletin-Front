@@ -1,0 +1,14 @@
+.footer{
+  position: fixed;
+  bottom: 0;
+  max-height: 40px;
+  padding: 0;
+  background: #4c8dee;
+
+  p {
+    font-size: 12px;
+    color: #FFF;
+    margin: auto 10px;
+    text-align: right;
+  }
+}

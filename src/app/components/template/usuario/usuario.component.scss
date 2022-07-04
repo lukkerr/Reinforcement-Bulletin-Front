@@ -1,0 +1,35 @@
+.div-gerenciarusuario{
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card-gerenciarusuario{
+  margin-left: 30px;
+  padding: 50px;
+  text-align: center;
+}
+
+.card-gerenciarusuario h1{
+  font-family: "Ink Free";
+  font-size: 2.3rem;
+}
+.cards-de-gerencia{
+  margin-top: 60px;
+  columns: 2;
+}
+
+
+.cadastrar-usuario{
+  margin-right: 50px;
+}
+
+.listar-usuarios{
+  margin-left: 50px;
+  margin-top: 50px;
+  margin-right: 40px;
+}
+
+button{
+  margin-top: 30px;
+}

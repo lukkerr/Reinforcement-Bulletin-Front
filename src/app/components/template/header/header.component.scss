@@ -1,0 +1,46 @@
+.header{
+  display: flex;
+  background: #4c8dee;
+  height: 56px;
+}
+
+.header span {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.header .logo {
+  max-height: 35px;
+}
+
+.header .title-page {
+  padding-left: 5px;
+  font-size: 13px;
+  color: #FFF;
+  margin-right: auto;
+}
+
+.div-sessao{
+  margin: auto 0 auto 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  span {
+    font-weight: 300;
+    font-size: 15px;
+    margin-right: 10px;
+  }
+}
+
+@media (max-width: 535px) {
+  .div-sessao span {
+    display: none;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+}

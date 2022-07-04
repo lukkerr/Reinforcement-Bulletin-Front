@@ -1,0 +1,11 @@
+<div class="div-home">
+  <h3>Bem-vindo ao Reinforcement Bulletin</h3>
+  <hr>
+  <p *ngIf="usuarioLogado == null">
+    Para acessar o sistema, faça login com seu usuário e senha, caso não possua usuário e senha entre contato com o professor responsável para que o mesmo o adicione-o na plataforma.
+  </p>
+  <p *ngIf="usuarioLogado != null">
+    Você esta logado na plataforma, siga com as suas atividades normalmente, basta selecionar a ação desejada no menu esquerdo.
+  </p>
+</div>
+

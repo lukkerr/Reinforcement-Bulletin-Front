@@ -1,0 +1,56 @@
+<mat-sidenav-container class="menu-container">
+  <mat-sidenav class="barra" mode="side" opened [ngClass]="{'hide': usuarioLogado === null}">
+    <i *ngIf="!isShowMenu" (click)="menuAction()" class="material-icons menu-icon">menu</i>
+    <i *ngIf="isShowMenu" (click)="menuAction()" class="material-icons menu-icon">close</i>
+    <mat-nav-list *ngIf="isShowMenu" class="nav-list">
+      <a *ngIf="usuarioLogado !== null && usuarioLogado.is_professor" (click)="menuAction()" mat-list-item routerLink="/usuario">
+        <i class="material-icons">
+          person_add
+        </i>
+        Usuarios
+      </a>
+
+      <hr *ngIf="usuarioLogado !== null && usuarioLogado.is_professor">
+
+      <a *ngIf="usuarioLogado !== null" (click)="menuAction()" mat-list-item routerLink="/aluno">
+        <i class="material-icons">
+          people
+        </i>
+        Alunos
+      </a>
+
+      <hr>
+
+      <a *ngIf="usuarioLogado !== null && usuarioLogado.is_professor" (click)="menuAction()" mat-list-item routerLink="/disciplina">
+        <i class="material-icons">
+          subject
+        </i>
+        Disciplinas
+      </a>
+
+      <hr *ngIf="usuarioLogado !== null && usuarioLogado.is_professor">
+
+      <a *ngIf="usuarioLogado !== null" (click)="menuAction()" mat-list-item routerLink="/cursa">
+        <i class="material-icons">
+          grade
+        </i>
+        Vínculos de Alunos
+      </a>
+
+      <hr>
+
+      <a *ngIf="usuarioLogado !== null" (click)="menuAction()" mat-list-item routerLink="/pagamento">
+        <i class="material-icons">
+          payment
+        </i>
+        Pagamentos
+      </a>
+
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="content">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

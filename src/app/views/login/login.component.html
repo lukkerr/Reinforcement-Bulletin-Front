@@ -1,0 +1,21 @@
+<mat-spinner *ngIf="!loaded"></mat-spinner>
+<div *ngIf="loaded" class="div-user">
+  <mat-card>
+    <mat-card-title>Login</mat-card-title>
+    <form>
+      <mat-form-field id="inputName">
+        <input matInput placeholder="CPF" [(ngModel)]="login.cpf" name="cpf">
+      </mat-form-field>
+
+      <mat-form-field id="inputSenha">
+        <input matInput placeholder="Senha" type="password" [(ngModel)]="login.senha"  name="senha">
+      </mat-form-field>
+
+    </form>
+    <div class="buttons">
+      <button mat-raised-button name="cancelar" (click)="cancelar()">Cancelar</button>
+      <button mat-raised-button color="primary" name="enviar" (click)="fazerLogin()">Enviar</button>
+    </div>
+  </mat-card>
+</div>
+

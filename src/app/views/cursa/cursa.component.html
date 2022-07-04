@@ -1,0 +1,144 @@
+<mat-spinner *ngIf="!loaded"></mat-spinner>
+<div *ngIf="loaded" class="div-user">
+  <div *ngIf="flagShowPopup" #popUpBox class="popup" (click)="clickPoUp($event,popUpBox)">
+    <mat-card class="card-user">
+      <mat-card-title>{{popUpMode === 'add' ? "Adicionar": "Editar"}} Vínculo</mat-card-title>
+      <form action="">
+
+        <mat-form-field appearance="fill" class="selectprofessor">
+          <mat-label>Selecione a Disciplina</mat-label>
+          <mat-select [(ngModel)]="cursa.id_disciplina" name="professor">
+            <mat-option *ngFor="let disciplina of getDisciplinasAtivas()" [value]="disciplina.id_disciplina"> {{disciplina.id_disciplina}} | {{disciplina.nome_disciplina}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="selectprofessor">
+          <mat-label>Selecione o Aluno</mat-label>
+          <mat-select [(ngModel)]="cursa.id_aluno" name="professor">
+            <mat-option *ngFor="let aluno of alunos" [value]="aluno.id_aluno"> {{aluno.id_aluno}} | {{aluno.nome_do_aluno}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="popUpMode == 'edit'">
+          <input matInput placeholder="Nota 1" type="number" min="0" max="10" [(ngModel)]="cursa.nota1" name="nota1">
+        </mat-form-field>
+
+        <mat-form-field *ngIf="popUpMode == 'edit'">
+          <input matInput placeholder="Nota 2" type="number" min="0" max="10" [(ngModel)]="cursa.nota2" name="nota2">
+        </mat-form-field>
+
+        <mat-form-field *ngIf="popUpMode == 'edit'">
+          <input matInput placeholder="Nota 3" type="number" min="0" max="10" [(ngModel)]="cursa.nota3" name="nota3">
+        </mat-form-field>
+
+        <mat-form-field *ngIf="popUpMode == 'edit'" appearance="fill" class="selectstatus">
+          <mat-label>Selecione o Status</mat-label>
+          <mat-select [(ngModel)]="cursa.status" name="status">
+            <mat-option *ngFor="let dicionario of dicionarioStatus, let indexDicionario = index" [value]="indexDicionario"> {{dicionario}} </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </form>
+
+      <button mat-raised-button #buttonSalvar (click)="saveUser(buttonSalvar, buttonCancelar)"  color="primary" >Salvar</button>
+      <button mat-raised-button #buttonCancelar (click)="showPopUp(null, eraseCursa)" >Cancelar</button>
+
+      <button *ngIf="popUpMode == 'edit'" (click)="openConfirm()" class="delete-icon" mat-fab color="primary">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-card>
+  </div>
+
+  <header>
+
+    <div class="row-add">
+      <h3>Vínculos</h3>
+
+      <button *ngIf="usuarioLogado != null && usuarioLogado.is_professor" (click)="showPopUp('add', eraseCursa)" mat-fab color="primary" aria-label="Adicionar novo Vínculo">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+
+    <div class="filter-box">
+      <mat-form-field class="input-pesquisar" appearance="fill">
+        <mat-label>Pesquisar por vínculo:</mat-label>
+        <input #inputSearch (input)="search(inputSearch)" matInput placeholder="Digite o vínculo desejado">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Selecione o Filtro</mat-label>
+        <mat-select [(ngModel)]="filterField" (selectionChange)="search(inputSearch)">
+          <mat-option [value]="''">-</mat-option>
+          <mat-option *ngFor="let item of [].constructor(displayedColumns.length); let i = index"  [value]="displayedColumns[i]">{{filterFields[i]}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <section class="filter-checkbox">
+      <mat-checkbox *ngIf="usuarioLogado != null && usuarioLogado.is_professor" (change)="search(inputSearch)" [(ngModel)]="minhasDisciplinas">Exibir somentes minhas disciplinas</mat-checkbox>
+      <mat-checkbox (change)="search(inputSearch)" [(ngModel)]="disciplinasAtivas">Exibir somentes disciplinas ativas</mat-checkbox>
+    </section>
+
+  </header>
+
+  <div class="content">
+    <mat-table #table [dataSource]="filterCursa">
+
+      <ng-container matColumnDef="id_cursa">
+        <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.id_cursa}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="id_disciplina">
+        <mat-header-cell *matHeaderCellDef>Disciplina</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.id_disciplina}} | {{getNomeDisciplina(element.id_disciplina)}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="id_aluno">
+        <mat-header-cell *matHeaderCellDef>Aluno</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.id_aluno}} | {{getNomeAluno(element.id_aluno)}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="nota1">
+        <mat-header-cell *matHeaderCellDef>Nota 1</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.nota1 !== null ? element.nota1 : '-'}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="nota2">
+        <mat-header-cell *matHeaderCellDef>Nota 2</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.nota2 !== null ? element.nota2 : '-'}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="nota3">
+        <mat-header-cell *matHeaderCellDef>Nota 3</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.nota3 !== null ? element.nota3 : '-'}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="media">
+        <mat-header-cell *matHeaderCellDef>Média</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.media !== null ? element.media.toFixed(2) : '-'}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{dicionarioStatus[element.status]}} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="showPopUp('edit', row)"></mat-row>
+
+    </mat-table>
+
+    <p *ngIf="filterCursa.length === 0">Nenhum vínculo encontrado.</p>
+  </div>
+</div>
+
+<div class="popup" *ngIf="flagShowConfirm" #confirmBox (click)="clickConfirm($event,confirmBox)">
+  <div class="confirm">
+    <p>Deseja realmente excluir esse vínculo do aluno com tal disciplina?</p>
+    <div>
+      <button mat-raised-button color="accent" (click)="eraseAttends()">Sim</button>
+      <button mat-raised-button (click)="closeConfirm()">Não</button>
+    </div>
+  </div>
+</div>

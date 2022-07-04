@@ -1,0 +1,98 @@
+<mat-spinner *ngIf="!loaded"></mat-spinner>
+<div *ngIf="loaded" class="div-user">
+  <div *ngIf="flagShowPopup" #popUpBox class="popup" (click)="clickPoUp($event,popUpBox)">
+    <mat-card class="card-user">
+      <mat-card-title>{{popUpMode === 'add' ? "Adicionar": "Editar"}} Disciplina</mat-card-title>
+      <form action="">
+
+        <mat-form-field>
+          <input matInput placeholder="Nome" [(ngModel)]="disciplina.nome_disciplina" name="nome">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="selectprofessor">
+          <mat-label>Selecione o Professor</mat-label>
+          <mat-select [(ngModel)]="disciplina.cpf_professor" name="professor">
+            <mat-option *ngFor="let professor of professores" [value]="professor.cpf">{{professor.cpf}} | {{professor.nome}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <label *ngIf="popUpMode === 'edit'" for="isactive"><input type="checkbox" id="isactive" [(ngModel)]="disciplina.ativo" name="isactive">Ativo</label>
+      </form>
+
+      <button mat-raised-button #buttonSalvar (click)="saveUser(buttonSalvar, buttonCancelar)"  color="primary" >Salvar</button>
+      <button mat-raised-button #buttonCancelar (click)="showPopUp(null, eraseDisciplina)" >Cancelar</button>
+
+      <button *ngIf="popUpMode == 'edit'" (click)="openConfirm()" class="delete-icon" mat-fab color="primary">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-card>
+  </div>
+
+  <header>
+
+    <div class="row-add">
+      <h3>Disciplinas</h3>
+
+      <button (click)="showPopUp('add', eraseDisciplina)" mat-fab color="primary" aria-label="Adicionar novo disciplina">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+
+    <div class="filter-box">
+      <mat-form-field class="input-pesquisar" appearance="fill">
+        <mat-label>Pesquisar por disciplina:</mat-label>
+        <input #inputSearch (input)="search(inputSearch)" matInput placeholder="Digite o disciplina desejado">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Selecione o Filtro</mat-label>
+        <mat-select [(ngModel)]="filterField" (selectionChange)="search(inputSearch)">
+          <mat-option [value]="''">-</mat-option>
+          <mat-option *ngFor="let item of [].constructor(displayedColumns.length); let i = index"  [value]="displayedColumns[i]">{{filterFields[i]}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+  </header>
+
+  <div class="content">
+    <mat-table #table [dataSource]="filterDisciplina">
+
+      <ng-container matColumnDef="id_disciplina">
+        <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.id_disciplina}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="cpf_professor">
+        <mat-header-cell *matHeaderCellDef>Professor</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.cpf_professor}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="nome_disciplina">
+        <mat-header-cell *matHeaderCellDef>Nome</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.nome_disciplina}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="ativo">
+        <mat-header-cell *matHeaderCellDef>Ativo</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.ativo ? 'Sim' : 'Não'}} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="showPopUp('edit', row)"></mat-row>
+
+    </mat-table>
+
+    <p *ngIf="filterDisciplina.length === 0">Nenhum disciplina encontrado.</p>
+  </div>
+</div>
+
+<div class="popup" *ngIf="flagShowConfirm" #confirmBox (click)="clickConfirm($event,confirmBox)">
+  <div class="confirm">
+    <p>Deseja realmente excluir o disciplina?</p>
+    <div>
+      <button mat-raised-button color="accent" (click)="eraseSubject()">Sim</button>
+      <button mat-raised-button (click)="closeConfirm()">Não</button>
+    </div>
+  </div>
+</div>
