@@ -30,10 +30,10 @@
 
       </form>
 
-      <button mat-raised-button #buttonSalvar (click)="saveUser(buttonSalvar, buttonCancelar)"  color="primary" >Salvar</button>
+      <button mat-raised-button #buttonSalvar (click)="saveUser(buttonSalvar, buttonCancelar)"  style="background-color: #b53f3f; color: #FFF" >Salvar</button>
       <button mat-raised-button #buttonCancelar (click)="showPopUp(null, erasePagamento)" >Cancelar</button>
 
-      <button *ngIf="popUpMode == 'edit'" (click)="openConfirm()" class="delete-icon" mat-fab color="primary">
+      <button *ngIf="popUpMode == 'edit'" (click)="openConfirm()" class="delete-icon" mat-fab style="background-color: #b53f3f; color: #FFF">
         <mat-icon>delete</mat-icon>
       </button>
     </mat-card>
@@ -44,7 +44,7 @@
     <div class="row-add">
       <h3>Pagamentos</h3>
 
-      <button *ngIf="usuarioLogado && usuarioLogado.is_professor" (click)="showPopUp('add', erasePagamento)" mat-fab color="primary" aria-label="Adicionar novo Pagamento">
+      <button *ngIf="usuarioLogado && usuarioLogado.is_professor" (click)="showPopUp('add', erasePagamento)" mat-fab style="background-color: #b53f3f; color: #FFF" aria-label="Adicionar novo Pagamento">
         <mat-icon>add</mat-icon>
       </button>
     </div>
@@ -116,7 +116,7 @@
   <div class="confirm">
     <p>Deseja realmente excluir esse pagamento?</p>
     <div>
-      <button mat-raised-button color="accent" (click)="erasePayment()">Sim</button>
+      <button mat-raised-button style="background-color: #b53f3f; color: #FFF" (click)="erasePayment()">Sim</button>
       <button mat-raised-button (click)="closeConfirm()">Não</button>
     </div>
   </div>

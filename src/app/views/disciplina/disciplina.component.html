@@ -19,10 +19,10 @@
         <label *ngIf="popUpMode === 'edit'" for="isactive"><input type="checkbox" id="isactive" [(ngModel)]="disciplina.ativo" name="isactive">Ativo</label>
       </form>
 
-      <button mat-raised-button #buttonSalvar (click)="saveUser(buttonSalvar, buttonCancelar)"  color="primary" >Salvar</button>
+      <button mat-raised-button #buttonSalvar (click)="saveUser(buttonSalvar, buttonCancelar)"  style="background-color: #b53f3f; color: #FFF" >Salvar</button>
       <button mat-raised-button #buttonCancelar (click)="showPopUp(null, eraseDisciplina)" >Cancelar</button>
 
-      <button *ngIf="popUpMode == 'edit'" (click)="openConfirm()" class="delete-icon" mat-fab color="primary">
+      <button *ngIf="popUpMode == 'edit'" (click)="openConfirm()" class="delete-icon" mat-fab style="background-color: #b53f3f; color: #FFF">
         <mat-icon>delete</mat-icon>
       </button>
     </mat-card>
@@ -33,7 +33,7 @@
     <div class="row-add">
       <h3>Disciplinas</h3>
 
-      <button (click)="showPopUp('add', eraseDisciplina)" mat-fab color="primary" aria-label="Adicionar novo disciplina">
+      <button (click)="showPopUp('add', eraseDisciplina)" mat-fab style="background-color: #b53f3f; color: #FFF" aria-label="Adicionar novo disciplina">
         <mat-icon>add</mat-icon>
       </button>
     </div>
@@ -91,7 +91,7 @@
   <div class="confirm">
     <p>Deseja realmente excluir o disciplina?</p>
     <div>
-      <button mat-raised-button color="accent" (click)="eraseSubject()">Sim</button>
+      <button mat-raised-button style="background-color: #b53f3f; color: #FFF" (click)="eraseSubject()">Sim</button>
       <button mat-raised-button (click)="closeConfirm()">Não</button>
     </div>
   </div>

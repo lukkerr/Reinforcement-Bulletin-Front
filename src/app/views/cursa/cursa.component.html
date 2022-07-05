@@ -40,10 +40,10 @@
 
       </form>
 
-      <button mat-raised-button #buttonSalvar (click)="saveUser(buttonSalvar, buttonCancelar)"  color="primary" >Salvar</button>
+      <button mat-raised-button #buttonSalvar (click)="saveUser(buttonSalvar, buttonCancelar)"  style="background-color: #b53f3f; color: #FFF" >Salvar</button>
       <button mat-raised-button #buttonCancelar (click)="showPopUp(null, eraseCursa)" >Cancelar</button>
 
-      <button *ngIf="popUpMode == 'edit'" (click)="openConfirm()" class="delete-icon" mat-fab color="primary">
+      <button *ngIf="popUpMode == 'edit'" (click)="openConfirm()" class="delete-icon" mat-fab style="background-color: #b53f3f; color: #FFF">
         <mat-icon>delete</mat-icon>
       </button>
     </mat-card>
@@ -54,7 +54,7 @@
     <div class="row-add">
       <h3>Vínculos</h3>
 
-      <button *ngIf="usuarioLogado != null && usuarioLogado.is_professor" (click)="showPopUp('add', eraseCursa)" mat-fab color="primary" aria-label="Adicionar novo Vínculo">
+      <button *ngIf="usuarioLogado != null && usuarioLogado.is_professor" (click)="showPopUp('add', eraseCursa)" mat-fab style="background-color: #b53f3f; color: #FFF" aria-label="Adicionar novo Vínculo">
         <mat-icon>add</mat-icon>
       </button>
     </div>
@@ -137,7 +137,7 @@
   <div class="confirm">
     <p>Deseja realmente excluir esse vínculo do aluno com tal disciplina?</p>
     <div>
-      <button mat-raised-button color="accent" (click)="eraseAttends()">Sim</button>
+      <button mat-raised-button style="background-color: #b53f3f; color: #FFF" (click)="eraseAttends()">Sim</button>
       <button mat-raised-button (click)="closeConfirm()">Não</button>
     </div>
   </div>

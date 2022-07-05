@@ -21,7 +21,7 @@
         </mat-form-field>
 
         <label *ngIf="popUpMode === 'edit'" for="isactive"><input [disabled]="usuarioLogado && usuarioLogado.cpf === usuario.old_cpf" type="checkbox" id="isactive" [(ngModel)]="usuario.ativo" name="isactive">Ativo</label>
-        
+
         <label for="isprof"><input [disabled]="popUpMode === 'edit' && usuarioLogado && usuarioLogado.cpf === usuario.old_cpf" type="checkbox" id="isprof" [(ngModel)]="usuario.is_professor" name="isprof">Professor</label>
       </form>
 
@@ -34,10 +34,10 @@
         </mat-form-field>
       </div>
 
-      <button mat-raised-button #buttonSalvar (click)="saveUser(buttonSalvar, buttonCancelar)"  color="primary" >Salvar</button>
+      <button mat-raised-button #buttonSalvar (click)="saveUser(buttonSalvar, buttonCancelar)"  style="background-color: #b53f3f; color: #FFF" >Salvar</button>
       <button mat-raised-button #buttonCancelar (click)="showPopUp(null, eraseUsuario)" >Cancelar</button>
 
-      <button *ngIf="popUpMode == 'edit' && usuario.old_cpf !== usuarioLogado.cpf" (click)="openConfirm()" class="delete-icon" mat-fab color="primary">
+      <button *ngIf="popUpMode == 'edit' && usuario.old_cpf !== usuarioLogado.cpf" (click)="openConfirm()" class="delete-icon" mat-fab style="background-color: #b53f3f; color: #FFF">
         <mat-icon>delete</mat-icon>
       </button>
     </mat-card>
@@ -48,7 +48,7 @@
     <div class="row-add">
       <h3>Usuários</h3>
 
-      <button (click)="showPopUp('add', eraseUsuario)" mat-fab color="primary" aria-label="Adicionar novo usuário">
+      <button (click)="showPopUp('add', eraseUsuario)" mat-fab style="background-color: #b53f3f; color: #FFF" aria-label="Adicionar novo usuário">
         <mat-icon>add</mat-icon>
       </button>
     </div>
@@ -126,7 +126,7 @@
   <div class="confirm">
     <p>Deseja realmente excluir o usuário?</p>
     <div>
-      <button mat-raised-button color="accent" (click)="eraseUser()">Sim</button>
+      <button mat-raised-button style="background-color: #b53f3f; color: #FFF" (click)="eraseUser()">Sim</button>
       <button mat-raised-button (click)="closeConfirm()">Não</button>
     </div>
   </div>
